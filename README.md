@@ -56,6 +56,10 @@ Tested on **Ryzen 7 5800X**, Node.js v24.
 | 1 MB  | 51 MB/s       | 1,671 MB/s  | 1,893 MB/s  |
 | 10 MB | 51 MB/s       | 1,572 MB/s  | 1,812 MB/s  |
 
+## Security
+
+The underlying `blake3` Rust crate targets algorithmic constant time. However, the JavaScript boundary (via napi-rs or WASM) introduces non-determinism from the V8 runtime that is outside our control. For absolute security, use the `blake3` Rust crate directly in a Rust program.
+
 ## See also
 
 - [@noble/hashes](https://github.com/paulmillr/noble-hashes) | pure JS implementation
