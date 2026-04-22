@@ -129,7 +129,7 @@ mod tests {
     }
 }
 
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", test))]
 mod wasm_tests {
     use super::*;
     use wasm_bindgen_test::*;
