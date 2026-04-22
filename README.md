@@ -1,5 +1,10 @@
 # blake3 to wasm
 
+[![npm version](https://img.shields.io/npm/v/blake3-wasm-rs)](https://www.npmjs.com/package/blake3-wasm-rs)
+[![CI](https://github.com/UneBaguette/blake3.wasm/actions/workflows/ci.yml/badge.svg)](https://github.com/UneBaguette/blake3.wasm/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/blake3-wasm-rs)](https://github.com/UneBaguette/blake3.wasm/blob/master/LICENSE)
+[![npm downloads](https://img.shields.io/npm/dm/blake3-wasm-rs)](https://www.npmjs.com/package/blake3-wasm-rs)
+
 **blake3.wasm** is a WebAssembly port of the BLAKE3 cryptographic hash function written in **Rust**. It enables fast and secure hashing right inside **browsers** and **Node.js**.
 
 ## build
