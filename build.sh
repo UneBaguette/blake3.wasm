@@ -4,8 +4,6 @@ set -euo pipefail
 ROOT="pkg"
 rm -rf "$ROOT"
 
-cp README.md "$ROOT/README.md"
-
 echo "Building bundler target..."
 wasm-pack build --target bundler -d "$ROOT/bundler"
 
@@ -18,6 +16,8 @@ wasm-pack build --target web -d "$ROOT/web"
 # Generate node-esm wrapper from the nodejs build exports
 echo "Generating node-esm wrapper..."
 mkdir -p "$ROOT/node-esm"
+
+cp README.md "$ROOT/README.md"
 
 # Extract export names from the nodejs .js file
 EXPORTS=$(grep -oP '(?<=module\.exports\.)\w+' "$ROOT/node/blake3_wasm_rs.js" | sort -u || true)
