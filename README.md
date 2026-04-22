@@ -75,15 +75,15 @@ h.finalize()
 
 ## Benchmarks
 
-Tested on **Ryzen 7 5800X**, Node.js v24.
+Tested on **Apple M4**, Node.js v24.
 
-| Size  | @noble/hashes | awasm-noble | blake3-wasm |
-|-------|---------------|-------------|-------------|
-| 32 B  | 11 MB/s       | 34 MB/s     | 81 MB/s     |
-| 1 KB  | 60 MB/s       | 360 MB/s    | 781 MB/s    |
-| 64 KB | 49 MB/s       | 1,518 MB/s  | 2,004 MB/s  |
-| 1 MB  | 51 MB/s       | 1,671 MB/s  | 1,893 MB/s  |
-| 10 MB | 51 MB/s       | 1,572 MB/s  | 1,812 MB/s  |
+| Size  | @noble/hashes | awasm-noble | awasm-noble (threads) | blake3-wasm |
+|-------|---------------|-------------|-----------------------|-------------|
+| 32 B  | 28 MB/s       | 105 MB/s     | 94 MB/s     | 129 MB/s     |
+| 1 KB  | 105 MB/s       | 843 MB/s    | 819 MB/s     | 568 MB/s    |
+| 64 KB | 102 MB/s       | 1,898 MB/s  | 1,855 MB/s     | 2,004 MB/s  |
+| 1 MB  | 101 MB/s       | 1,943 MB/s  | 4,711 MB/s     | 1,893 MB/s  |
+| 10 MB | 101 MB/s       | 1,911 MB/s  | 6,456 MB/s     | 2,185 MB/s  |
 
 ## Security
 
