@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install wasm-pack
+        run: cargo install wasm-pack
+
+      - name: Rust tests
+        run: cargo test
+
+      - name: WASM tests (Node)
+        run: wasm-pack test --node
+
+      - name: Build package
+        run: bash build.sh
+
+      - name: Publish to npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > pkg/.npmrc
+          cd pkg
+          npm publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

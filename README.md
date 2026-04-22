@@ -23,8 +23,32 @@ rustflags = ["-C", "target-feature=+simd128"]
 
 ## Usage
 
+```ts
+import * as blake3 from 'blake3-wasm-rs';
+
+const data = new TextEncoder().encode('hello world');
+const key = new Uint8Array(32).fill(1);
+
+// One-shot hashing
+blake3.hash(data);
+blake3.hashXof(data, 64); // variable output length
+
+// MAC and key derivation
+blake3.keyedHash(data, key);
+blake3.deriveKey('my context', key);
+
+// Conctruct for streaming
+const hasher = new blake3.Hasher();
+
+hasher.update(data.slice(0, 5));
+hasher.update(data.slice(5));
+hasher.finalize();
+```
+
+#### OR
+
 ```js
-import { hash, hashXof, keyedHash, deriveKey, Hasher } from './pkg/blake3_wasm.js'
+import { hash, hashXof, keyedHash, deriveKey, Hasher } from 'blake3-wasm-rs'
 
 const data = new TextEncoder().encode('hello world')
 const key = new Uint8Array(32).fill(1)

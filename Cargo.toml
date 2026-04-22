@@ -1,6 +1,6 @@
 [package]
-name = "blake3-wasm"
-version = "0.0.1"
+name = "blake3-wasm-rs"
+version = "0.1.1"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/UneBaguette/blake3.wasm"
@@ -14,3 +14,6 @@ crate-type = ["cdylib"]
 [dependencies]
 blake3 = { version = "1.8.4", features = ["wasm32_simd"] }
 wasm-bindgen = "0.2.118"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
