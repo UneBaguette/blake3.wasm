@@ -9,7 +9,7 @@ keywords = ["blake3", "wasm", "hash", "cryptography", "wasm-bindgen"]
 categories = ["cryptography", "wasm"]
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 blake3 = { version = "1.8.4", features = ["wasm32_simd"] }
