@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="pkg"
 rm -rf "$ROOT"
 
+cp README.md "$ROOT/README.md"
+
 echo "Building bundler target..."
 wasm-pack build --target bundler -d "$ROOT/bundler"
 
@@ -51,7 +53,7 @@ rm -f "$ROOT/bundler/.gitignore" "$ROOT/node/.gitignore" "$ROOT/web/.gitignore"
 cat > "$ROOT/package.json" << 'EOF'
 {
   "name": "blake3-wasm-rs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "BLAKE3 hashing via Rust/WASM - works in Node.js (CJS + ESM), browsers, and bundlers",
   "license": "MIT",
   "repository": {
@@ -73,7 +75,8 @@ cat > "$ROOT/package.json" << 'EOF'
     "node/",
     "node-esm/",
     "bundler/",
-    "web/"
+    "web/",
+    "README.md"
   ],
   "keywords": [
     "blake3",
