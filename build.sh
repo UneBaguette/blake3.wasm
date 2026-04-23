@@ -53,7 +53,7 @@ rm -f "$ROOT/bundler/.gitignore" "$ROOT/node/.gitignore" "$ROOT/web/.gitignore"
 cat > "$ROOT/package.json" << 'EOF'
 {
   "name": "blake3-wasm-rs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "BLAKE3 hashing via Rust/WASM - works in Node.js (CJS + ESM), browsers, and bundlers",
   "license": "MIT",
   "repository": {

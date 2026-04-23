@@ -47,7 +47,7 @@ dependencies = [
 
 [[package]]
 name = "blake3-wasm-rs"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "blake3",
  "wasm-bindgen",

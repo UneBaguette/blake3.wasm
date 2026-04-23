@@ -1,8 +1,10 @@
 [package]
 name = "blake3-wasm-rs"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "MIT"
+authors = ["UneBaguette <tom@unebaguette.fr>"]
+publish = false
 repository = "https://github.com/UneBaguette/blake3.wasm"
 description = "Simple blake3 to wasm project"
 keywords = ["blake3", "wasm", "hash", "cryptography", "wasm-bindgen"]
@@ -12,8 +14,8 @@ categories = ["cryptography", "wasm"]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-blake3 = { version = "1.8.4", features = ["wasm32_simd"] }
-wasm-bindgen = "0.2.118"
+blake3 = { version = "1.8", features = ["wasm32_simd"] }
+wasm-bindgen = "0.2"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

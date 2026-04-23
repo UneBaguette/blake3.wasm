@@ -79,11 +79,21 @@ Tested on **Apple M4**, Node.js v24.
 
 | Size  | @noble/hashes | awasm-noble | awasm-noble (threads) | blake3-wasm |
 |-------|---------------|-------------|-----------------------|-------------|
-| 32 B  | 28 MB/s       | 105 MB/s     | 94 MB/s     | 129 MB/s     |
-| 1 KB  | 105 MB/s       | 843 MB/s    | 819 MB/s     | 568 MB/s    |
-| 64 KB | 102 MB/s       | 1,898 MB/s  | 1,855 MB/s     | 2,004 MB/s  |
-| 1 MB  | 101 MB/s       | 1,943 MB/s  | 4,711 MB/s     | 1,893 MB/s  |
-| 10 MB | 101 MB/s       | 1,911 MB/s  | 6,456 MB/s     | 2,185 MB/s  |
+| 32 B  | 28 MB/s       | 105 MB/s    | 94 MB/s               | 129 MB/s    |
+| 1 KB  | 105 MB/s      | 843 MB/s    | 819 MB/s              | 568 MB/s    |
+| 64 KB | 102 MB/s      | 1,898 MB/s  | 1,855 MB/s            | 2,004 MB/s  |
+| 1 MB  | 101 MB/s      | 1,943 MB/s  | 4,711 MB/s            | 1,893 MB/s  |
+| 10 MB | 101 MB/s      | 1,911 MB/s  | 6,456 MB/s            | 2,185 MB/s  |
+
+Tested on **Ryzen 7 5800X**, Node.js v24.
+
+| Size  | @noble/hashes | awasm-noble | awasm-noble (threads) | blake3-wasm |
+|-------|---------------|-------------|-----------------------|-------------|
+| 32 B  | 11 MB/s       | 34 MB/s     | 45 MB/s               | 70 MB/s     |
+| 1 KB  | 56 MB/s       | 499 MB/s    | 526 MB/s              | 885 MB/s    |
+| 64 KB | 52 MB/s       | 1,729 MB/s  | 1,684 MB/s            | 2,037 MB/s  |
+| 1 MB  | 51 MB/s       | 1,550 MB/s  | 4,036 MB/s            | 1,829 MB/s  |
+| 10 MB | 50 MB/s       | 1,497 MB/s  | 4,946 MB/s            | 1,877 MB/s  |
 
 ## Security
 
