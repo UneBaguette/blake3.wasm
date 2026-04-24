@@ -25,7 +25,7 @@ jobs:
         run: wasm-pack test --node
 
       - name: Build package
-        run: bash build.sh
+        run: make
 
       - name: Publish to npm
         run: |
