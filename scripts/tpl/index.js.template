@@ -1,0 +1,4 @@
+// blake3-wasm-rs. Auto-generated entry point
+// Do not edit directly!
+
+export { Hasher, deriveKey, hash, hashXof, keyedHash } from './bundler/blake3_wasm_rs.js';

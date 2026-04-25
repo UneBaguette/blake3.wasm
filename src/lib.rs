@@ -1,5 +1,13 @@
 use wasm_bindgen::prelude::*;
 
+#[cfg(all(
+    not(target_feature = "atomics"),
+    target_family = "wasm",
+    feature = "talc"
+))]
+#[global_allocator]
+static TALC: talc::wasm::WasmDynamicTalc = talc::wasm::new_wasm_dynamic_allocator();
+
 /// Hash data and return a 32-byte BLAKE3 digest.
 #[wasm_bindgen]
 pub fn hash(value: &[u8]) -> Vec<u8> {
@@ -8,7 +16,7 @@ pub fn hash(value: &[u8]) -> Vec<u8> {
 
 /// Hash data with variable-length output (XOF mode).
 /// Returns `out_len` bytes of BLAKE3 extended output.
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = "hashXof")]
 pub fn hash_xof(data: &[u8], out_len: usize) -> Vec<u8> {
     let mut out = vec![0u8; out_len];
     let mut reader = blake3::Hasher::new().update(data).finalize_xof();
@@ -20,7 +28,7 @@ pub fn hash_xof(data: &[u8], out_len: usize) -> Vec<u8> {
 
 /// Compute a keyed BLAKE3 hash (MAC). Key must be exactly 32 bytes.
 /// Throws if the key length is wrong.
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = "keyedHash")]
 pub fn keyed_hash(data: &[u8], key: &[u8]) -> Result<Vec<u8>, JsError> {
     let key: &[u8; 32] = key
         .try_into()
@@ -31,7 +39,7 @@ pub fn keyed_hash(data: &[u8], key: &[u8]) -> Result<Vec<u8>, JsError> {
 
 /// Derive a 32-byte key from a context string and key material.
 /// Context should be a hardcoded, globally unique, application-specific string.
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = "deriveKey")]
 pub fn derive_key(context: &str, key_material: &[u8]) -> Vec<u8> {
     blake3::derive_key(context, key_material).to_vec()
 }
@@ -57,6 +65,7 @@ impl Hasher {
 
     /// Create a keyed hasher (MAC mode). Key must be exactly 32 bytes.
     /// Throws if the key length is wrong.
+    #[wasm_bindgen(js_name = "newKeyed")]
     pub fn new_keyed(key: &[u8]) -> Result<Hasher, JsError> {
         let key: &[u8; 32] = key
             .try_into()
@@ -68,6 +77,7 @@ impl Hasher {
     /// Create a hasher in derive-key mode.
     /// Context should be a hardcoded, globally unique, application-specific string.
     /// Feed key material via `update()`, then call `finalize()`.
+    #[wasm_bindgen(js_name = "newDeriveKey")]
     pub fn new_derive_key(context: &str) -> Hasher {
         Hasher(blake3::Hasher::new_derive_key(context))
     }
@@ -83,6 +93,7 @@ impl Hasher {
     }
 
     /// Return `out_len` bytes of extended output (XOF mode). Non-destructive.
+    #[wasm_bindgen(js_name = "finalizeXof")]
     pub fn finalize_xof(&self, out_len: usize) -> Vec<u8> {
         let mut out = vec![0u8; out_len];
         self.0.finalize_xof().fill(&mut out);
@@ -92,6 +103,7 @@ impl Hasher {
 
     /// Finalize the hash and reset the hasher in one call.
     /// Useful for hashing multiple inputs sequentially without creating new instances.
+    #[wasm_bindgen(js_name = "finalizeAndReset")]
     pub fn finalize_and_reset(&mut self) -> Vec<u8> {
         let out = self.0.finalize().as_bytes().to_vec();
         self.0.reset();
