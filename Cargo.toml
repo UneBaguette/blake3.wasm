@@ -18,7 +18,7 @@ talc = ["dep:talc"]
 
 [dependencies]
 blake3 = { version = "1.8", features = ["wasm32_simd"] }
-wasm-bindgen = "0.2"
+wasm-bindgen = "=0.2.118"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
