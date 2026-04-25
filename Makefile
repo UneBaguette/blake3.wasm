@@ -1,6 +1,6 @@
 ROOT := pkg
 CRATE := blake3_wasm_rs
-VERSION := 0.4.1
+VERSION := $(shell grep '^version' Cargo.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
 
 CARGO := cargo
 WASM_BINDGEN := wasm-bindgen
