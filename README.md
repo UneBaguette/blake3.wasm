@@ -171,11 +171,11 @@ Tested on **Ryzen 7 5800X**, Node.js v24.
 
 | Size  | @noble/hashes | awasm-noble | awasm-noble (threads) | blake3-wasm |
 |-------|---------------|-------------|-----------------------|-------------|
-| 32 B  | 11 MB/s       | 34 MB/s     | 45 MB/s               | 70 MB/s     |
-| 1 KB  | 56 MB/s       | 499 MB/s    | 526 MB/s              | 885 MB/s    |
-| 64 KB | 52 MB/s       | 1,729 MB/s  | 1,684 MB/s            | 2,037 MB/s  |
-| 1 MB  | 51 MB/s       | 1,550 MB/s  | 4,036 MB/s            | 1,829 MB/s  |
-| 10 MB | 50 MB/s       | 1,497 MB/s  | 4,946 MB/s            | 1,877 MB/s  |
+| 32 B  | 11 MB/s       | 34 MB/s     | 45 MB/s               | 84 MB/s     |
+| 1 KB  | 56 MB/s       | 499 MB/s    | 526 MB/s              | 851 MB/s    |
+| 64 KB | 52 MB/s       | 1,729 MB/s  | 1,684 MB/s            | 2,014 MB/s  |
+| 1 MB  | 51 MB/s       | 1,550 MB/s  | 4,036 MB/s            | 1,787 MB/s  |
+| 10 MB | 50 MB/s       | 1,497 MB/s  | 4,946 MB/s            | 1,899 MB/s  |
 
 ## Security
 

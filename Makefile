@@ -1,11 +1,11 @@
 ROOT := pkg
 CRATE := blake3_wasm_rs
-VERSION := 0.4.0
+VERSION := 0.4.1
 
 CARGO := cargo
 WASM_BINDGEN := wasm-bindgen
 WASM_OPT := wasm-opt
-WASM_OPT_FLAGS := --enable-bulk-memory --enable-nontrapping-float-to-int -O
+WASM_OPT_FLAGS := --enable-bulk-memory --enable-nontrapping-float-to-int -O3
 WASM_TARGET := wasm32-unknown-unknown
 TARGET_DIR := target/$(WASM_TARGET)/release
 
@@ -20,7 +20,7 @@ build: build-all node-esm
 
 build-all:
 	@echo "Building all target..."
-	RUSTFLAGS='-C opt-level=s' $(CARGO) build --target $(WASM_TARGET) --release --features talc
+	RUSTFLAGS='-C opt-level=3' $(CARGO) build --target $(WASM_TARGET) --release --features talc
 	@mkdir -p $(ROOT)/bundler $(ROOT)/web $(ROOT)/node
 	$(WASM_BINDGEN) --target bundler --out-dir $(ROOT)/bundler $(TARGET_DIR)/$(CRATE).wasm
 	$(WASM_BINDGEN) --target web --out-dir $(ROOT)/web $(TARGET_DIR)/$(CRATE).wasm
@@ -34,7 +34,7 @@ build-all:
 	@echo '{"type":"commonjs"}' > $(ROOT)/node/package.json
 	@cp scripts/tpl/index.js.template $(ROOT)/index.js
 	@cp scripts/tpl/index.d.ts $(ROOT)/index.d.ts
-	@cp scripts/tpl/README.md $(ROOT)/README.md
+	@cp README.md $(ROOT)/README.md
 	@cp LICENSE $(ROOT)/LICENSE
 	@sed -i 's|// @ts-nocheck|// Types|' $(ROOT)/index.d.ts
 	@node -e "\
