@@ -24,6 +24,7 @@ jobs:
         run: |
           curl -L https://github.com/wasm-bindgen/wasm-bindgen/releases/download/0.2.118/wasm-bindgen-0.2.118-x86_64-unknown-linux-musl.tar.gz | tar xz
           sudo mv wasm-bindgen-*/wasm-bindgen /usr/local/bin/
+          sudo mv wasm-bindgen-*/wasm-bindgen-test-runner /usr/local/bin/
 
       - name: Install wasm-opt
         run: |
