@@ -8,6 +8,16 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static TALC: talc::wasm::WasmDynamicTalc = talc::wasm::new_wasm_dynamic_allocator();
 
+const MAX_XOF_LEN: usize = 1 << 16; // 65_536
+
+fn checked_xof_len(out_len: usize) -> Result<usize, JsError> {
+    if out_len == 0 || out_len > MAX_XOF_LEN {
+        return Err(JsError::new("out_len must be between 1 and 65536"));
+    }
+
+    Ok(out_len)
+}
+
 /// Hash data and return a 32-byte BLAKE3 digest.
 #[wasm_bindgen]
 pub fn hash(value: &[u8]) -> Vec<u8> {
@@ -17,13 +27,14 @@ pub fn hash(value: &[u8]) -> Vec<u8> {
 /// Hash data with variable-length output (XOF mode).
 /// Returns `out_len` bytes of BLAKE3 extended output.
 #[wasm_bindgen(js_name = "hashXof")]
-pub fn hash_xof(data: &[u8], out_len: usize) -> Vec<u8> {
+pub fn hash_xof(data: &[u8], out_len: usize) -> Result<Vec<u8>, JsError> {
+    let out_len = checked_xof_len(out_len)?;
     let mut out = vec![0u8; out_len];
     let mut reader = blake3::Hasher::new().update(data).finalize_xof();
 
     reader.fill(&mut out);
 
-    out
+    Ok(out)
 }
 
 /// Compute a keyed BLAKE3 hash (MAC). Key must be exactly 32 bytes.
@@ -94,11 +105,12 @@ impl Hasher {
 
     /// Return `out_len` bytes of extended output (XOF mode). Non-destructive.
     #[wasm_bindgen(js_name = "finalizeXof")]
-    pub fn finalize_xof(&self, out_len: usize) -> Vec<u8> {
+    pub fn finalize_xof(&self, out_len: usize) -> Result<Vec<u8>, JsError> {
+        let out_len = checked_xof_len(out_len)?;
         let mut out = vec![0u8; out_len];
         self.0.finalize_xof().fill(&mut out);
 
-        out
+        Ok(out)
     }
 
     /// Finalize the hash and reset the hasher in one call.
@@ -135,8 +147,8 @@ mod tests {
 
     #[test]
     fn test_hash_xof_length() {
-        assert_eq!(hash_xof(b"hello", 64).len(), 64);
-        assert_eq!(hash_xof(b"hello", 16).len(), 16);
+        assert_eq!(hash_xof(b"hello", 64).unwrap().len(), 64);
+        assert_eq!(hash_xof(b"hello", 16).unwrap().len(), 16);
     }
 
     #[test]
@@ -199,17 +211,17 @@ mod tests {
 
     #[test]
     fn test_hasher_finalize_xof() {
-        let oneshot = hash_xof(b"hello", 64);
+        let oneshot = hash_xof(b"hello", 64).unwrap();
         let mut h = Hasher::new();
         h.update(b"hello");
-        assert_eq!(h.finalize_xof(64), oneshot);
+        assert_eq!(h.finalize_xof(64).unwrap(), oneshot);
     }
 
     #[test]
     fn test_hasher_finalize_xof_prefix_matches_hash() {
         // First 32 bytes of XOF output should equal the standard hash
         let standard = hash(b"test data");
-        let xof = hash_xof(b"test data", 64);
+        let xof = hash_xof(b"test data", 64).unwrap();
         assert_eq!(&xof[..32], standard.as_slice());
     }
 
@@ -290,5 +302,27 @@ mod wasm_tests {
     #[wasm_bindgen_test]
     fn test_hasher_keyed_bad_key() {
         assert!(Hasher::new_keyed(&[0u8; 10]).is_err());
+    }
+
+    #[wasm_bindgen_test]
+    fn test_hash_xof_zero_len() {
+        assert!(hash_xof(b"hello", 0).is_err());
+    }
+
+    #[wasm_bindgen_test]
+    fn test_hash_xof_over_max() {
+        assert!(hash_xof(b"hello", 65_537).is_err());
+    }
+
+    #[wasm_bindgen_test]
+    fn test_hasher_finalize_xof_zero_len() {
+        let h = Hasher::new();
+        assert!(h.finalize_xof(0).is_err());
+    }
+
+    #[wasm_bindgen_test]
+    fn test_hasher_finalize_xof_over_max() {
+        let h = Hasher::new();
+        assert!(h.finalize_xof(65_537).is_err());
     }
 }

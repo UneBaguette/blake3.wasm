@@ -20,7 +20,7 @@ build: build-all node-esm
 
 build-all:
 	@echo "Building all target..."
-	RUSTFLAGS='-C opt-level=3' $(CARGO) build --target $(WASM_TARGET) --release --features talc
+	RUSTFLAGS='-C opt-level=3 -C target-feature=+simd128' $(CARGO) build --target $(WASM_TARGET) --release --features talc
 	@mkdir -p $(ROOT)/bundler $(ROOT)/web $(ROOT)/node
 	$(WASM_BINDGEN) --target bundler --out-dir $(ROOT)/bundler $(TARGET_DIR)/$(CRATE).wasm
 	$(WASM_BINDGEN) --target web --out-dir $(ROOT)/web $(TARGET_DIR)/$(CRATE).wasm
