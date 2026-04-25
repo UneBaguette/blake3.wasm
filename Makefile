@@ -52,7 +52,7 @@ build-all:
 	         import: './bundler/$(CRATE).js',\
 	         default: './web/$(CRATE).js'\
 	      }},\
-	      files: ['bundler/', 'web/', 'node/', 'node-esm/', '$(CRATE)_bg.wasm', 'README.md', 'LICENSE'],\
+	      files: ['bundler/', 'web/', 'node/', 'node-esm/', 'index.js', 'index.d.ts', '$(CRATE)_bg.wasm', 'README.md', 'LICENSE'],\
 	      keywords: ['blake3', 'wasm', 'hash', 'cryptography', 'wasm-bindgen']\
 	   };\
 	   require('fs').writeFileSync('./$(ROOT)/package.json', JSON.stringify(pkg, null, 2) + '\n');"
