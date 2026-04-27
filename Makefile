@@ -35,7 +35,8 @@ build-all:
 	@cp scripts/tpl/index.js.template $(ROOT)/index.js
 	@cp scripts/tpl/index.d.ts $(ROOT)/index.d.ts
 	@cp README.md $(ROOT)/README.md
-	@cp LICENSE $(ROOT)/LICENSE
+	@cp LICENSE-MIT $(PKG_DIR)/LICENSE-MIT
+	@cp LICENSE-APACHE $(PKG_DIR)/LICENSE-APACHE
 	@sed -i 's|// @ts-nocheck|// Types|' $(ROOT)/index.d.ts
 	@node -e "\
 	   const pkg = {\
@@ -48,6 +49,7 @@ build-all:
 	      main: 'index.js',\
 	      types: 'index.d.ts',\
 	      exports: { '.': {\
+             types: './index.d.ts',\
 	         node: { require: './node/$(CRATE).js', import: './node-esm/index.mjs' },\
 	         import: './bundler/$(CRATE).js',\
 	         default: './web/$(CRATE).js'\

@@ -1,9 +1,9 @@
 [package]
 name = "blake3-wasm-rs"
-version = "0.5.1"
+version = "0.5.2"
 edition = "2024"
-license = "MIT"
-authors = ["UneBaguette <tom@unebaguette.fr>"]
+license = "MIT OR Apache-2.0"
+authors = ["Thomas <tom@unebaguette.fr>"]
 publish = false
 repository = "https://github.com/UneBaguette/blake3.wasm"
 description = "Simple blake3 to wasm project"

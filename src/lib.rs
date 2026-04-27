@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// Copyright 2026 Thomas <tom@unebaguette.fr>
+
 use wasm_bindgen::prelude::*;
 
 #[cfg(all(
