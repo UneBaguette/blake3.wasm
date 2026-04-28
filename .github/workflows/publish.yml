@@ -39,7 +39,7 @@ jobs:
         run: cargo test
 
       - name: WASM tests (Node)
-        run: wasm-pack test --node
+        run: wasm-pack test --node --features wasm,talc
 
       - name: Build package
         run: make

@@ -20,7 +20,7 @@ build: build-all node-esm
 
 build-all:
 	@echo "Building all target..."
-	RUSTFLAGS='-C opt-level=3 -C target-feature=+simd128' $(CARGO) build --target $(WASM_TARGET) --release --features talc
+	RUSTFLAGS='-C opt-level=3 -C target-feature=+simd128' $(CARGO) build --target $(WASM_TARGET) --release --features wasm,talc
 	@mkdir -p $(ROOT)/bundler $(ROOT)/web $(ROOT)/node
 	$(WASM_BINDGEN) --target bundler --out-dir $(ROOT)/bundler $(TARGET_DIR)/$(CRATE).wasm
 	$(WASM_BINDGEN) --target web --out-dir $(ROOT)/web $(TARGET_DIR)/$(CRATE).wasm
@@ -35,9 +35,9 @@ build-all:
 	@cp scripts/tpl/index.js.template $(ROOT)/index.js
 	@cp scripts/tpl/index.d.ts $(ROOT)/index.d.ts
 	@cp README.md $(ROOT)/README.md
-	@cp LICENSE-MIT $(PKG_DIR)/LICENSE-MIT
-	@cp LICENSE-APACHE $(PKG_DIR)/LICENSE-APACHE
-	@sed -i 's|// @ts-nocheck|// Types|' $(ROOT)/index.d.ts
+	@cp LICENSE-MIT $(ROOT)/LICENSE-MIT
+	@cp LICENSE-APACHE $(ROOT)/LICENSE-APACHE
+	@sed -i 's|// @ts-nocheck||' $(ROOT)/index.d.ts
 	@node -e "\
 	   const pkg = {\
 	      name: 'blake3-wasm-rs',\
