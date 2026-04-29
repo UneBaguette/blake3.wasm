@@ -35,7 +35,7 @@ blake3.deriveKey('my context', key);
 
 // Conctruct for Streaming
 {
-    using h = new blake3.Hasher();
+    const h = new blake3.Hasher();
     h.update(data.slice(0, 5));
     h.update(data.slice(5));
     h.finalize();
@@ -45,23 +45,19 @@ blake3.deriveKey('my context', key);
 
 // Streaming
 // Keyed (MAC mode)
-{
-    using mac = blake3.Hasher.newKeyed(key);
-    mac.update(data);
-    mac.finalize();
-}
+const mac = blake3.Hasher.newKeyed(key);
+mac.update(data);
+mac.finalize();
 
 // Streaming
 // Key derivation mode
-{
-    using kdf = blake3.Hasher.newDeriveKey('my app v1 :: subkey');
-    kdf.update(key);
-    kdf.finalize();
-}
+const kdf = blake3.Hasher.newDeriveKey('my app v1 :: subkey');
+kdf.update(key);
+kdf.finalize();
 
 // Batch hashing without re-allocating
 {
-    using h = new blake3.Hasher();
+    const h = new blake3.Hasher();
     h.update(chunk1);
     const first = h.finalizeAndReset();
     h.update(chunk2);
@@ -73,48 +69,6 @@ blake3.deriveKey('my context', key);
 
 ```ts
 import { hash, hashXof, keyedHash, deriveKey, Hasher } from 'blake3-wasm-rs';
-
-const data = new TextEncoder().encode('hello world');
-const key = new Uint8Array(32).fill(1);
-
-// One-shot hashing
-hash(data);
-hashXof(data, 64);          // variable output length
-keyedHash(data, key);       // key must be exactly 32 bytes
-deriveKey('my context', key);
-
-// Streaming
-{
-    using h = new Hasher();
-    h.update(data.slice(0, 5));
-    h.update(data.slice(5));
-    h.finalize();
-    h.finalizeXof(64);
-    h.reset();
-}
-
-// Keyed (MAC mode)
-{
-    using mac = Hasher.newKeyed(key);
-    mac.update(data);
-    mac.finalize();
-}
-
-// Key derivation mode
-{
-    using kdf = Hasher.newDeriveKey('my app v1 :: subkey');
-    kdf.update(key);
-    kdf.finalize();
-}
-
-// Batch hashing without re-allocating
-{
-    using h = new Hasher();
-    h.update(chunk1);
-    const first = h.finalizeAndReset();
-    h.update(chunk2);
-    const second = h.finalizeAndReset();
-}
 ```
 
 ## API
