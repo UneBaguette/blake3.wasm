@@ -33,7 +33,7 @@ jobs:
 
       - name: Install wasm-opt
         run: |
-          curl -L https://github.com/WebAssembly/binaryen/releases/latest/download/binaryen-version_129-x86_64-linux.tar.gz | tar xz
+          curl -L https://github.com/WebAssembly/binaryen/releases/download/version_129/binaryen-version_129-x86_64-linux.tar.gz | tar xz
           sudo mv binaryen-*/bin/wasm-opt /usr/local/bin/
 
       - name: Rust tests
