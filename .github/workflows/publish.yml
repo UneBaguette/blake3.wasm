@@ -4,10 +4,6 @@ on:
   release:
     types: [ published ]
 
-permissions:
-  id-token: write
-  contents: read
-
 env:
   CARGO_TERM_COLOR: always
 
@@ -47,8 +43,5 @@ jobs:
 
       - name: Publish to npm
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           cd pkg
           npm publish --access public --provenance
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
