@@ -17,6 +17,7 @@ crate-type = ["cdylib", "rlib"]
 default = []
 wasm = ["dep:wasm-bindgen"]
 talc = ["dep:talc"]
+zeroize = ["blake3/zeroize"]
 
 [dependencies]
 blake3 = { version = "1", features = ["wasm32_simd"] }
