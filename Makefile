@@ -44,7 +44,7 @@ build-all:
 	      type: 'module',\
 	      version: '$(VERSION)',\
 	      description: 'BLAKE3 hashing via Rust/WASM - works in Node.js (CJS + ESM), browsers, and bundlers',\
-	      license: 'MIT',\
+	      license: 'MIT OR Apache-2.0',\
 	      repository: { type: 'git', url: 'https://github.com/UneBaguette/blake3.wasm' },\
 	      main: 'index.js',\
 	      types: 'index.d.ts',\
