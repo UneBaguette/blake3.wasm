@@ -1,6 +1,6 @@
 [package]
 name = "blake3-wasm-rs"
-version = "0.6.2"
+version = "0.6.3"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 authors = ["Thomas <tom@unebaguette.fr>"]
@@ -21,7 +21,7 @@ zeroize = ["blake3/zeroize"]
 
 [dependencies]
 blake3 = { version = "1", features = ["wasm32_simd"] }
-wasm-bindgen = { version = "=0.2.118", optional = true }
+wasm-bindgen = { version = "=0.2.123", optional = true }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

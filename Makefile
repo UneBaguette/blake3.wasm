@@ -26,6 +26,7 @@ build-all:
 	$(WASM_BINDGEN) --target web --out-dir $(ROOT)/web $(TARGET_DIR)/$(CRATE).wasm
 	$(WASM_BINDGEN) --target nodejs --out-dir $(ROOT)/node $(TARGET_DIR)/$(CRATE).wasm
 	@mv $(ROOT)/bundler/$(CRATE)_bg.wasm $(ROOT)/$(CRATE)_bg.wasm
+	@cp $(ROOT)/bundler/$(CRATE)_bg.js $(ROOT)/$(CRATE)_bg.js
 	@rm -f $(ROOT)/web/$(CRATE)_bg.wasm $(ROOT)/node/$(CRATE)_bg.wasm
 	$(WASM_OPT) $(WASM_OPT_FLAGS) $(ROOT)/$(CRATE)_bg.wasm -o $(ROOT)/$(CRATE)_bg.wasm
 	@node -e "['bundler','web','node'].forEach(d=>{const f='$(ROOT)/'+d+'/$(CRATE).js';require('fs').writeFileSync(f,require('fs').readFileSync(f,'utf8').replace(/$(CRATE)_bg\.wasm/g,'../$(CRATE)_bg.wasm'))})"
