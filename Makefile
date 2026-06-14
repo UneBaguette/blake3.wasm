@@ -52,7 +52,8 @@ build-all:
 	      exports: { '.': {\
              types: './index.d.ts',\
 	         node: { require: './node/$(CRATE).js', import: './node-esm/index.mjs' },\
-	         import: './bundler/$(CRATE).js',\
+	         webpack: './bundler/$(CRATE).js',\
+	         import: './web/$(CRATE).js',\
 	         default: './web/$(CRATE).js'\
 	      }},\
 	      files: ['bundler/', 'web/', 'node/', 'node-esm/', 'index.js', 'index.d.ts', '$(CRATE)_bg.wasm', '$(CRATE)_bg.js', 'README.md', 'LICENSE'],\
