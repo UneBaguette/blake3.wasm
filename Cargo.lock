@@ -57,7 +57,7 @@ dependencies = [
 
 [[package]]
 name = "blake3-wasm-rs"
-version = "0.6.5"
+version = "0.6.6"
 dependencies = [
  "blake3",
  "hex",
